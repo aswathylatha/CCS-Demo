@@ -2,6 +2,10 @@ const PRODUCTS = {
   apple: { name: "Apple", emoji: "🍏" },
   banana: { name: "Banana", emoji: "🍌" },
   lemon: { name: "Lemon", emoji: "🍋" },
+  orange: { name: "Orange", emoji: "🍊" },
+  strawberry: { name: "Strawberry", emoji: "🍓" },
+  watermelon: { name: "Watermelon", emoji: "🍉" },
+  mango: { name: "Mango", emoji: "🥭" },
 };
 
 const BUNDLES = {
@@ -27,6 +31,24 @@ const BUNDLES = {
   }
 };
 
+const SMOOTHIES = {
+  apple_banana_smoothie: {
+    name: "Apple Banana Smoothie",
+    fruits: ["apple", "banana"],
+    emoji: "🥤"
+  },
+  orange_lemon_smoothie: {
+    name: "Orange Lemon Smoothie",
+    fruits: ["orange", "lemon"],
+    emoji: "🥤"
+  },
+  tropical_mix_smoothie: {
+    name: "Tropical Mix Smoothie",
+    fruits: ["mango", "banana", "orange"],
+    emoji: "🍹"
+  }
+};
+
 function getBasket() {
   const basket = localStorage.getItem("basket");
   return basket ? JSON.parse(basket) : [];
@@ -47,6 +69,16 @@ function addBundle(bundleId) {
   if (bundle) {
     const basket = getBasket();
     basket.push(`bundle_${bundleId}`);
+    localStorage.setItem("basket", JSON.stringify(basket));
+    renderBasketIndicator();
+  }
+}
+
+function addSmoothie(smoothieId) {
+  const smoothie = SMOOTHIES[smoothieId];
+  if (smoothie) {
+    const basket = getBasket();
+    basket.push(`smoothie_${smoothieId}`);
     localStorage.setItem("basket", JSON.stringify(basket));
     renderBasketIndicator();
   }
@@ -79,6 +111,12 @@ function renderBasket() {
       const bundle = BUNDLES[bundleId];
       if (bundle) {
         innerHtml = `<span class='basket-emoji'>${bundle.emoji}</span> <span>${bundle.name} Bundle</span>`;
+      }
+    } else if (item.startsWith && item.startsWith("smoothie_")) {
+      const smoothieId = item.replace("smoothie_", "");
+      const smoothie = SMOOTHIES[smoothieId];
+      if (smoothie) {
+        innerHtml = `<span class='basket-emoji'>${smoothie.emoji}</span> <span>${smoothie.name}</span>`;
       }
     } else {
       const product = PRODUCTS[item];

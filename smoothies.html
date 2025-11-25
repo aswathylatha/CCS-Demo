@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fruit Smoothies - Fruit Shop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header role="banner">
+    <div class="header-center">
+      <a href="index.html" class="logo" aria-label="Go to homepage">
+        <img src="img/fruit-shop-logo.webp" class="logo-img" alt="Fruit Shop Logo" />
+        <span class="products-text" style="text-align: center">View Products</span>
+      </a>
+      <nav role="navigation" aria-label="Main navigation">
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="bundles.html">Bundles</a>
+          <a href="smoothies.html" class="active">Smoothies</a>
+          <a href="personality-quiz.html" class="quiz-link">🌟 Fruit Quiz</a>
+        </div>
+        <a href="basket.html" class="basket-link" aria-label="View shopping basket" style="position: relative">
+          <img src="img/basket-icon.png" class="basket-img" alt="Shopping basket icon" />
+          <span class="basket-text">View shopping basket</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content" role="main">
+    <h1 class="products-title">Fruit Smoothies</h1>
+    <div class="bundles-container">
+      <div class="bundle-card">
+        <h2>Apple Banana Smoothie</h2>
+        <div class="bundle-emojis"><span role="img" aria-label="Smoothie">🥤</span> <span class="bundle-emojis">🍏🍌</span></div>
+        <p class="bundle-desc">Refreshing blend of apple and banana for a great start to your day!</p>
+        <button onclick="addSmoothie('apple_banana_smoothie')" class="cart-action-btn" aria-label="Add Apple Banana Smoothie to basket">Add to Basket</button>
+      </div>
+      <div class="bundle-card">
+        <h2>Orange Lemon Smoothie</h2>
+        <div class="bundle-emojis"><span role="img" aria-label="Smoothie">🥤</span> <span class="bundle-emojis">🍊🍋</span></div>
+        <p class="bundle-desc">Bright and zesty blend of orange and lemon, packed with Vitamin C!</p>
+        <button onclick="addSmoothie('orange_lemon_smoothie')" class="cart-action-btn" aria-label="Add Orange Lemon Smoothie to basket">Add to Basket</button>
+      </div>
+      <div class="bundle-card">
+        <h2>Tropical Mix Smoothie</h2>
+        <div class="bundle-emojis"><span role="img" aria-label="Smoothie">🍹</span> <span class="bundle-emojis">🥭🍌🍊</span></div>
+        <p class="bundle-desc">A sunny blend of mango, banana, and orange. Feels like vacation in a glass!</p>
+        <button onclick="addSmoothie('tropical_mix_smoothie')" class="cart-action-btn" aria-label="Add Tropical Mix Smoothie to basket">Add to Basket</button>
+      </div>
+    </div>
+  </main>
+  <script src="shop.js"></script>
+</body>
+</html>
