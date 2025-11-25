@@ -52,6 +52,14 @@ function addBundle(bundleId) {
   }
 }
 
+function removeFromBasket(index) {
+  const basket = getBasket();
+  basket.splice(index, 1);
+  localStorage.setItem("basket", JSON.stringify(basket));
+  renderBasket();
+  renderBasketIndicator();
+}
+
 function renderBasket() {
   const basket = getBasket();
   const basketList = document.getElementById("basketList");
@@ -63,24 +71,35 @@ function renderBasket() {
     if (cartButtonsRow) cartButtonsRow.style.display = "none";
     return;
   }
-  basket.forEach((item) => {
-    if (item.startsWith("bundle_")) {
+  basket.forEach((item, idx) => {
+    let li = document.createElement("li");
+    let innerHtml = "";
+    if (item.startsWith && item.startsWith("bundle_")) {
       const bundleId = item.replace("bundle_", "");
       const bundle = BUNDLES[bundleId];
       if (bundle) {
-        const li = document.createElement("li");
-        li.innerHTML = `<span class='basket-emoji'>${bundle.emoji}</span> <span>${bundle.name} Bundle</span>`;
-        basketList.appendChild(li);
+        innerHtml = `<span class='basket-emoji'>${bundle.emoji}</span> <span>${bundle.name} Bundle</span>`;
       }
     } else {
       const product = PRODUCTS[item];
       if (product) {
-        const li = document.createElement("li");
-        li.innerHTML = `<span class='basket-emoji'>${product.emoji}</span> <span>${product.name}</span>`;
-        basketList.appendChild(li);
+        innerHtml = `<span class='basket-emoji'>${product.emoji}</span> <span>${product.name}</span>`;
       }
     }
+    // Add delete button
+    innerHtml += ` <button class='delete-item-btn' aria-label='Remove item' data-idx='${idx}' style='margin-left:10px;'>🗑️</button>`;
+    li.innerHTML = innerHtml;
+    basketList.appendChild(li);
   });
+
+  // Add event listeners for delete buttons
+  Array.from(document.getElementsByClassName("delete-item-btn")).forEach(btn => {
+    btn.onclick = function() {
+      const idx = parseInt(this.getAttribute("data-idx"), 10);
+      removeFromBasket(idx);
+    };
+  });
+
   if (cartButtonsRow) cartButtonsRow.style.display = "flex";
 }
 
